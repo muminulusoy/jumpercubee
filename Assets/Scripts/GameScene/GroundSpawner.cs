@@ -1,18 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Microsoft.Win32.SafeHandles;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class GroundSpawner : MonoBehaviour
 {
     public GameObject ground;
-    public Transform tr;
+    private Transform tr;
     
     public int groundNumber;
     public float groundWidth;
     public float maxY, miny;
+    
 
     public void Start()
     {

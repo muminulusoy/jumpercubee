@@ -1,13 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Ground : MonoBehaviour
+public class Groundds : MonoBehaviour
 {
     public float jumpForce;
     public bool groundTouch = false;
+    public static Action TriggerPoint;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.relativeVelocity.y < 0)
@@ -19,11 +17,12 @@ public class Ground : MonoBehaviour
                 Vector2 jumpVelocity = rb.velocity;
                 jumpVelocity.y = jumpForce;
                 rb.velocity = jumpVelocity;
-
+                
                 if (groundTouch == false)
                 {
-                    Administrator.scoreNumber++;
                     groundTouch = true;
+                    
+                    TriggerPoint.Invoke();
                 }
             }
         }

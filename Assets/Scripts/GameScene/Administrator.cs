@@ -1,14 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Administrator : MonoBehaviour
 {
-    public Text scor;
-    public static float scoreNumber=0;
-    void Update()
+    [SerializeField]private TextMeshProUGUI score;
+    
+    private float scoreNumber=0;
+
+    private void Awake()
     {
-        scor.text = scoreNumber.ToString();
+        Groundds.TriggerPoint += UpdatePoint;
+    }
+
+    private void UpdatePoint()
+    {
+        scoreNumber += 1;
+        score.text = scoreNumber.ToString();
     }
 }
