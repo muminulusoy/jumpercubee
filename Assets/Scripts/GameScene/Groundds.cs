@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Groundds : MonoBehaviour
 {
-    [SerializeField]private GroundSpawner groundSpawn;
+    private GroundSpawner groundSpawn;
     
     public float jumpForce;
     public bool groundTouch = false;
@@ -12,13 +12,11 @@ public class Groundds : MonoBehaviour
 
     public void Start()
     {
-        groundSpawn = GameObject.Find("GroundSpawner").GetComponent<GroundSpawner>();//sorun
         anim = GetComponent<Animator>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        groundSpawn.SpawnGround();
         
         if (collision.relativeVelocity.y < 0)
         {
@@ -34,7 +32,7 @@ public class Groundds : MonoBehaviour
                 {
                     groundTouch = true;
 
-                    //anim.SetBool("touch",true);
+                    anim.SetTrigger("Trigger");
                     //Destroy(gameObject,1f);
                     
                     TriggerPoint.Invoke();

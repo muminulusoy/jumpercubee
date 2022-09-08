@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    private Queue<GameObject> pooledObjects;
+    public Queue<GameObject> pooledObjects;
     [SerializeField] private GameObject objectPrefab;
     [SerializeField] private int poolSize;
-    public static ObjectPool SharedInstance;
 
     public ObjectPool(GameObject objectPrefab,int poolSize)
     {
@@ -30,8 +29,6 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetPooledObject()
     {
-        Debug.Log(pooledObjects);
-
         GameObject obj = pooledObjects.Dequeue();//nesneyi kuyruktan al
         
         obj.SetActive(true);//görünür yap

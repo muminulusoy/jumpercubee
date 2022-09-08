@@ -6,55 +6,41 @@ using Random = UnityEngine.Random;
 
 public class GroundSpawner : MonoBehaviour
 {
-    private GameObject ground ;
-    [SerializeField]private ObjectPool objectPool ;
+    private GameObject ground;
+    [SerializeField] private ObjectPool objectPool;
     private Transform tr;
-    
-    //public int poolSize;
+    private Vector3 spawnPosition;
+    public static Vector3 higherPlatform;
+
     public float groundWidth;
     public float maxY, miny;
-    
 
-    public void Start()
+
+    private void Start()
     {
+        SpawnGround();
     }
 
-    public void SpawnGround()
+
+    private void SpawnGround()
     {
-        Debug.Log(objectPool.GetPooledObject());
-        StartCoroutine(Delay());
-        IEnumerator Delay()
+        for (int i = 0; i < objectPool.pooledObjects.Count; i++)
         {
-            yield return new WaitForSeconds(1f);
-            
             ground = objectPool.GetPooledObject();
             tr = ground.GetComponent<Transform>();
-        
-        
-            Vector3 spawnPosition = new Vector3();
+            tr.position = spawnPosition;
             Vector2 newScale = new Vector2();
-
+        
             newScale.x = Random.Range(1.1f, 1.5f);
             newScale.y = Random.Range(1.1f, 1.5f);
             tr.localScale = newScale;
 
             spawnPosition.y += Random.Range(miny, maxY);
-            spawnPosition.x = Random.Range(-groundWidth,groundWidth);
-        }
-        
-        
-        /*for (int i = 0; i < groundNumber; i++)
-        {
-            newScale.x = Random.Range(1.1f, 1.5f);
-            newScale.y = Random.Range(1.1f, 1.5f);
-            tr.localScale = newScale;
-
-            spawnPosition.y += Random.Range(miny, maxY);
-            spawnPosition.x = Random.Range(-groundWidth,groundWidth);
+            spawnPosition.x = Random.Range(-groundWidth, groundWidth);
             
-            //ground.SetActive(true);
-            //Instantiate(ground, spawnPosition, Quaternion.identity);
-        }*/
+        }
+
+        higherPlatform = spawnPosition;
     }
     
 }
