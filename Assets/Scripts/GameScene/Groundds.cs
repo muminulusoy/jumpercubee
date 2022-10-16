@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Groundds : MonoBehaviour
@@ -8,6 +9,7 @@ public class Groundds : MonoBehaviour
     public float jumpForce;
     public bool groundTouch = false;
     public static Action TriggerPoint;
+    public static Action TriggerPointSpawn;
     private Animator anim;
 
     public void Start()
@@ -31,17 +33,24 @@ public class Groundds : MonoBehaviour
                 if (groundTouch == false)
                 {
                     groundTouch = true;
-
-                    anim.SetTrigger("Trigger");
-                    //Destroy(gameObject,1f);
                     
+                    StartCoroutine(ExampleCoroutine());
+                    anim.SetTrigger("Trigger");
                     TriggerPoint.Invoke();
+                    
                 }
-           
-                
             }
         }
+    }
+    
+    IEnumerator ExampleCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+
+        TriggerPointSpawn.Invoke();
+        groundTouch = false;
         
     }
+    
 
 }
